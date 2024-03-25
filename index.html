@@ -1,0 +1,773 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>For My Love</title>
+    <meta name="Generator" content="EditPlus" />
+    <meta name="Author" content="" />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "heart-font";
+        src: URL("./fonts/UVF\ Filxgirl.ttf") format("truetype");
+      }
+
+      html,
+      body {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        background: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .box {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+      }
+
+      canvas {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+      #pinkboard {
+        position: relative;
+        margin: auto;
+        height: 500px;
+        width: 500px;
+        animation: animate 1.3s infinite;
+      }
+
+      #pinkboard:before,
+      #pinkboard:after {
+        content: "";
+        position: absolute;
+        background: #ff5ca4;
+        width: 100px;
+        height: 160px;
+        border-top-left-radius: 50px;
+        border-top-right-radius: 50px;
+      }
+
+      #pinkboard:before {
+        left: 100px;
+        transform: rotate(-45deg);
+        transform-origin: 0 100%;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+          0 10px 10px rgba(0, 0, 0, 0.22);
+      }
+
+      #pinkboard:after {
+        left: 0;
+        transform: rotate(45deg);
+        transform-origin: 100% 100%;
+      }
+
+      .zoom-in-out-box {
+        animation: animate 1.3s ease infinite;
+      }
+
+      @keyframes animate {
+        0% {
+          transform: scale(1.5);
+        }
+        30% {
+          transform: scale(1.3);
+        }
+        60% {
+          transform: scale(1.7);
+        }
+        100% {
+          transform: scale(1.5);
+        }
+      }
+
+      /* customizable snowflake styling */
+      .snowflake {
+        color: #fff;
+        font-size: 1em;
+        font-family: Arial;
+        text-shadow: 0 0 1px #000;
+      }
+
+      @-webkit-keyframes snowflakes-fall {
+        0% {
+          top: -10%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @-webkit-keyframes snowflakes-shake {
+        0% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+        50% {
+          -webkit-transform: translateX(80px);
+          transform: translateX(80px);
+        }
+        100% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+      }
+      @keyframes snowflakes-fall {
+        0% {
+          top: -10%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @keyframes snowflakes-shake {
+        0% {
+          transform: translateX(0px);
+        }
+        50% {
+          transform: translateX(80px);
+        }
+        100% {
+          transform: translateX(0px);
+        }
+      }
+      .snowflake {
+        position: fixed;
+        top: -10%;
+        z-index: 9999;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: default;
+        -webkit-animation-name: snowflakes-fall, snowflakes-shake;
+        -webkit-animation-duration: 10s, 3s;
+        -webkit-animation-timing-function: linear, ease-in-out;
+        -webkit-animation-iteration-count: infinite, infinite;
+        -webkit-animation-play-state: running, running;
+        animation-name: snowflakes-fall, snowflakes-shake;
+        animation-duration: 10s, 3s;
+        animation-timing-function: linear, ease-in-out;
+        animation-iteration-count: infinite, infinite;
+        animation-play-state: running, running;
+      }
+      .snowflake:nth-of-type(0) {
+        left: 1%;
+        -webkit-animation-delay: 0s, 0s;
+        animation-delay: 0s, 0s;
+      }
+      .snowflake:nth-of-type(1) {
+        left: 5%;
+        -webkit-animation-delay: 1s, 1s;
+        animation-delay: 1s, 1s;
+      }
+      .snowflake:nth-of-type(2) {
+        left: 10%;
+        -webkit-animation-delay: 6s, 0.5s;
+        animation-delay: 6s, 0.5s;
+      }
+      .snowflake:nth-of-type(3) {
+        left: 15%;
+        -webkit-animation-delay: 4s, 2s;
+        animation-delay: 4s, 2s;
+      }
+      .snowflake:nth-of-type(4) {
+        left: 20%;
+        -webkit-animation-delay: 2s, 2s;
+        animation-delay: 2s, 2s;
+      }
+      .snowflake:nth-of-type(5) {
+        left: 25%;
+        -webkit-animation-delay: 8s, 3s;
+        animation-delay: 8s, 3s;
+      }
+      .snowflake:nth-of-type(6) {
+        left: 30%;
+        -webkit-animation-delay: 6s, 2s;
+        animation-delay: 6s, 2s;
+      }
+      .snowflake:nth-of-type(7) {
+        left: 35%;
+        -webkit-animation-delay: 2.5s, 1s;
+        animation-delay: 2.5s, 1s;
+      }
+      .snowflake:nth-of-type(8) {
+        left: 40%;
+        -webkit-animation-delay: 1s, 0s;
+        animation-delay: 1s, 0s;
+      }
+      .snowflake:nth-of-type(9) {
+        left: 45%;
+        -webkit-animation-delay: 3s, 1.5s;
+        animation-delay: 3s, 1.5s;
+      }
+      .snowflake:nth-of-type(10) {
+        left: 50%;
+        -webkit-animation-delay: 5s, 2.5s;
+        animation-delay: 5s, 2.5s;
+      }
+      .snowflake:nth-of-type(11) {
+        left: 55%;
+        -webkit-animation-delay: 7s, 1s;
+        animation-delay: 7s, 1s;
+      }
+      .snowflake:nth-of-type(12) {
+        left: 60%;
+        -webkit-animation-delay: 3.5s, 0s;
+        animation-delay: 3.5s, 0s;
+      }
+      .snowflake:nth-of-type(13) {
+        left: 65%;
+        -webkit-animation-delay: 2s, 1.5s;
+        animation-delay: 2s, 1.5s;
+      }
+      .snowflake:nth-of-type(14) {
+        left: 70%;
+        -webkit-animation-delay: 4.5s, 0.5s;
+        animation-delay: 4.5s, 0.5s;
+      }
+      .snowflake:nth-of-type(15) {
+        left: 75%;
+        -webkit-animation-delay: 6s, 1s;
+        animation-delay: 6s, 1s;
+      }
+      .snowflake:nth-of-type(16) {
+        left: 80%;
+        -webkit-animation-delay: 1.5s, 2s;
+        animation-delay: 1.5s, 2s;
+      }
+      .snowflake:nth-of-type(17) {
+        left: 85%;
+        -webkit-animation-delay: 3s, 1.5s;
+        animation-delay: 3s, 1.5s;
+      }
+      .snowflake:nth-of-type(18) {
+        left: 90%;
+        -webkit-animation-delay: 5.5s, 0.5s;
+        animation-delay: 5.5s, 0.5s;
+      }
+
+      .wheel {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        border: solid 6px #fff;
+        box-shadow: 0 4px 9px 0 rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top: 30%;
+        right: 10%;
+      }
+      .wheel__inner {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        transition: cubic-bezier(0.19, 1, 0.22, 1) 5s;
+      }
+      .wheel__sec {
+        position: absolute;
+        top: 0;
+        left: 62px;
+        width: 0;
+        height: 0;
+        border: solid;
+        border-width: 150px 88px 0;
+        border-color: transparent;
+        transform-origin: 50% 100%;
+      }
+      .wheel__sec:nth-child(1) {
+        border-top-color: #16a085;
+      }
+      .wheel__sec:nth-child(2) {
+        border-top-color: #2980b9;
+        transform: rotate(60deg);
+      }
+      .wheel__sec:nth-child(3) {
+        border-top-color: #34495e;
+        transform: rotate(120deg);
+      }
+      .wheel__sec:nth-child(4) {
+        border-top-color: #f39c12;
+        transform: rotate(180deg);
+      }
+      .wheel__sec:nth-child(5) {
+        border-top-color: #d35400;
+        transform: rotate(240deg);
+      }
+      .wheel__sec:nth-child(6) {
+        border-top-color: #c0392b;
+        transform: rotate(300deg);
+      }
+      .wheel__arrow {
+        width: 70px;
+        height: 70px;
+        background: #fff;
+        position: absolute;
+        top: 121px;
+        left: 115px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Open sans", sans-serif;
+      }
+      .wheel__arrow::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: solid;
+        border-width: 0 10px 20px;
+        border-color: transparent;
+        border-bottom-color: #fff;
+        top: -15px;
+        left: 25px;
+      }
+      .wheel__button {
+        width: 60px;
+        height: 60px;
+        background-color: lightgray;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: 0.3s;
+        font-weight: 600;
+        font-size: 18px;
+      }
+      .wheel__button:hover {
+        color: #27ae60;
+      }
+      .wheel__button:active {
+        border: solid 3px rgba(0, 0, 0, 0.1);
+        font-size: 15px;
+      }
+    </style>
+  </head>
+
+  <body style="overflow: hidden">
+    <div class="box">
+      <canvas id="pinkboard"></canvas>
+    </div>
+
+    <div class="snowflakes" aria-hidden="true">
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❆</div>
+      <div class="snowflake">❄</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❆</div>
+      <div class="snowflake">❄</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❆</div>
+      <div class="snowflake">❄</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❆</div>
+      <div class="snowflake">❄</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❆</div>
+      <div class="snowflake">❄</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❆</div>
+      <div class="snowflake">❄</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❆</div>
+      <div class="snowflake">❄</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❆</div>
+      <div class="snowflake">❄</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❆</div>
+      <div class="snowflake">❄</div>
+    </div>
+
+    <!-- <div class="wheel">
+      <div class="wheel__inner">
+        <div class="wheel__sec"></div>
+        <div class="wheel__sec"></div>
+        <div class="wheel__sec"></div>
+        <div class="wheel__sec"></div>
+        <div class="wheel__sec"></div>
+        <div class="wheel__sec"></div>
+      </div>
+      <div class="wheel__arrow">
+        <button class="wheel__button">QUAY</button>
+      </div>
+    </div> -->
+    <script>
+      $(document).ready(function () {
+        var value = 0;
+        var countClicked = 0;
+        var clicked = false;
+        function getPosition(position) {
+          if (position <= 30) {
+            $(".congratulation__note").text(
+              "CHÚC MỪNG BẠN TRÚNG ĐƯỢC MỘT NHÀ LẦU 4 TẦNG"
+            );
+          } else if (position <= 90) {
+            $(".congratulation__note").text(
+              "CHÚC MỪNG BẠN TRÚNG ĐƯỢC MỘT CHUYẾN DU LỊCH VŨNG TÀU"
+            );
+          } else if (position <= 150) {
+            $(".congratulation__note").text("CHÚC BẠN MAY MẮN LẦN SAU");
+          } else if (position <= 210) {
+            $(".congratulation__note").text(
+              "CHÚC MỪNG BẠN TRÚNG ĐƯỢC MỘT THẺ CÀO 200K"
+            );
+          } else if (position <= 270) {
+            $(".congratulation__note").text(
+              "CHÚC MỪNG BẠN TRÚNG ĐƯỢC MỘT THẺ CÀO 100K"
+            );
+          } else if (position <= 330) {
+            $(".congratulation__note").text(
+              "CHÚC MỪNG BẠN TRÚNG ĐƯỢC MỘT CHUYẾN DU LỊCH MIỀN TÂY"
+            );
+          } else {
+            $(".congratulation__note").text(
+              "CHÚC MỪNG BẠN TRÚNG ĐƯỢC MỘT CĂN NHÀ LẦU 4 TẦNG"
+            );
+          }
+          clicked = false;
+          countClicked = 0;
+        }
+
+        $(".wheel__button").click(function () {
+          if (clicked == true) {
+            countClicked++;
+            if (countClicked <= 2) {
+              alert("Thôi, vợ đừng quay nữa :))");
+            } else if (countClicked <= 4)
+              alert("Thôi, vợ đừng quay nữa mà :))");
+            else if (countClicked <= 6)
+              alert("Thôi, vợ đừng quay nữa mà, không trúng đâu :))");
+            else {
+              alert("Thôi, vợ đừng quay nữa mà, không trúng đâu, mệt rồi :))");
+            }
+          } else {
+            let random = Math.floor(Math.random() * 360 + 720);
+            value += random;
+            console.log(random % 360);
+            console.log(value % 360);
+            $(".wheel__inner").css("transform", `rotate(${value}deg)`);
+            setTimeout(() => {
+              //Chia lấy dư cho 360 để lấy lượng quay không hoàn thành một vòng 360deg
+              getPosition(value % 360);
+            }, 5000);
+          }
+          clicked = true;
+        });
+      });
+
+      /*
+       * Settings
+       */
+      var settings = {
+        particles: {
+          length: 2500, // maximum amount of particles
+          duration: 2, // particle duration in sec
+          velocity: 100, // particle velocity in pixels/sec
+          effect: -1.3, // play with this for a nice effect
+          size: 13, // particle size in pixels
+        },
+      };
+      /*
+       * RequestAnimationFrame polyfill by Erik Möller
+       */
+      (function () {
+        var b = 0;
+        var c = ["ms", "moz", "webkit", "o"];
+        for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) {
+          window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"];
+          window.cancelAnimationFrame =
+            window[c[a] + "CancelAnimationFrame"] ||
+            window[c[a] + "CancelRequestAnimationFrame"];
+        }
+        if (!window.requestAnimationFrame) {
+          window.requestAnimationFrame = function (h, e) {
+            var d = new Date().getTime();
+            var f = Math.max(0, 16 - (d - b));
+            var g = window.setTimeout(function () {
+              h(d + f);
+            }, f);
+            b = d + f;
+            return g;
+          };
+        }
+        if (!window.cancelAnimationFrame) {
+          window.cancelAnimationFrame = function (d) {
+            clearTimeout(d);
+          };
+        }
+      })();
+      /*
+       * Point class
+       */
+      var Point = (function () {
+        function Point(x, y) {
+          this.x = typeof x !== "undefined" ? x : 0;
+          this.y = typeof y !== "undefined" ? y : 0;
+        }
+        Point.prototype.clone = function () {
+          return new Point(this.x, this.y);
+        };
+        Point.prototype.length = function (length) {
+          if (typeof length == "undefined")
+            return Math.sqrt(this.x * this.x + this.y * this.y);
+          this.normalize();
+          this.x *= length;
+          this.y *= length;
+          return this;
+        };
+        Point.prototype.normalize = function () {
+          var length = this.length();
+          this.x /= length;
+          this.y /= length;
+          return this;
+        };
+        return Point;
+      })();
+      /*
+       * Particle class
+       */
+      var Particle = (function () {
+        function Particle() {
+          this.position = new Point();
+          this.velocity = new Point();
+          this.acceleration = new Point();
+          this.age = 0;
+        }
+        Particle.prototype.initialize = function (x, y, dx, dy) {
+          this.position.x = x;
+          this.position.y = y;
+          this.velocity.x = dx;
+          this.velocity.y = dy;
+          this.acceleration.x = dx * settings.particles.effect;
+          this.acceleration.y = dy * settings.particles.effect;
+          this.age = 0;
+        };
+        Particle.prototype.update = function (deltaTime) {
+          this.position.x += this.velocity.x * deltaTime;
+          this.position.y += this.velocity.y * deltaTime;
+          this.velocity.x += this.acceleration.x * deltaTime;
+          this.velocity.y += this.acceleration.y * deltaTime;
+          this.age += deltaTime;
+        };
+        Particle.prototype.draw = function (context, image) {
+          function ease(t) {
+            return --t * t * t + 1;
+          }
+          var size = image.width * ease(this.age / settings.particles.duration);
+          context.globalAlpha = 1 - this.age / settings.particles.duration;
+          context.drawImage(
+            image,
+            this.position.x - size / 2,
+            this.position.y - size / 2,
+            size,
+            size
+          );
+        };
+        return Particle;
+      })();
+      /*
+       * ParticlePool class
+       */
+      var ParticlePool = (function () {
+        var particles,
+          firstActive = 0,
+          firstFree = 0,
+          duration = settings.particles.duration;
+
+        function ParticlePool(length) {
+          // create and populate particle pool
+          particles = new Array(length);
+          for (var i = 0; i < particles.length; i++)
+            particles[i] = new Particle();
+        }
+        ParticlePool.prototype.add = function (x, y, dx, dy) {
+          particles[firstFree].initialize(x, y, dx, dy);
+
+          // handle circular queue
+          firstFree++;
+          if (firstFree == particles.length) firstFree = 0;
+          if (firstActive == firstFree) firstActive++;
+          if (firstActive == particles.length) firstActive = 0;
+        };
+        ParticlePool.prototype.update = function (deltaTime) {
+          var i;
+
+          // update active particles
+          if (firstActive < firstFree) {
+            for (i = firstActive; i < firstFree; i++)
+              particles[i].update(deltaTime);
+          }
+          if (firstFree < firstActive) {
+            for (i = firstActive; i < particles.length; i++)
+              particles[i].update(deltaTime);
+            for (i = 0; i < firstFree; i++) particles[i].update(deltaTime);
+          }
+
+          // remove inactive particles
+          while (
+            particles[firstActive].age >= duration &&
+            firstActive != firstFree
+          ) {
+            firstActive++;
+            if (firstActive == particles.length) firstActive = 0;
+          }
+        };
+        ParticlePool.prototype.draw = function (context, image) {
+          // draw active particles
+          if (firstActive < firstFree) {
+            for (i = firstActive; i < firstFree; i++)
+              particles[i].draw(context, image);
+          }
+          if (firstFree < firstActive) {
+            for (i = firstActive; i < particles.length; i++)
+              particles[i].draw(context, image);
+            for (i = 0; i < firstFree; i++) particles[i].draw(context, image);
+          }
+        };
+        return ParticlePool;
+      })();
+      /*
+       * Putting it all together
+       */
+      (function (canvas) {
+        var context = canvas.getContext("2d"),
+          particles = new ParticlePool(settings.particles.length),
+          particleRate =
+            settings.particles.length / settings.particles.duration, // particles/sec
+          time;
+
+        // get point on heart with -PI <= t <= PI
+        function pointOnHeart(t) {
+          return new Point(
+            160 * Math.pow(Math.sin(t), 3),
+            130 * Math.cos(t) -
+              50 * Math.cos(2 * t) -
+              20 * Math.cos(3 * t) -
+              10 * Math.cos(4 * t) +
+              25
+          );
+        }
+
+        // creating the particle image using a dummy canvas
+        var image = (function () {
+          var canvas = document.createElement("canvas"),
+            context = canvas.getContext("2d");
+          canvas.width = settings.particles.size;
+          canvas.height = settings.particles.size;
+          // helper function to create the path
+          function to(t) {
+            var point = pointOnHeart(t);
+            point.x =
+              settings.particles.size / 2 +
+              (point.x * settings.particles.size) / 350;
+            point.y =
+              settings.particles.size / 2 -
+              (point.y * settings.particles.size) / 350;
+            return point;
+          }
+          // create the path
+          context.beginPath();
+          var t = -Math.PI;
+          var point = to(t);
+          context.moveTo(point.x, point.y);
+          while (t < Math.PI) {
+            t += 0.01; // baby steps!
+            point = to(t);
+            context.lineTo(point.x, point.y);
+          }
+          context.closePath();
+          // create the fill
+          context.fillStyle = "#FF5CA4";
+          context.fill();
+          // create the image
+          var image = new Image();
+          image.src = canvas.toDataURL();
+          return image;
+        })();
+
+        // render that thing!
+        function render() {
+          // next animation frame
+          requestAnimationFrame(render);
+
+          // update time
+          var newTime = new Date().getTime() / 1000,
+            deltaTime = newTime - (time || newTime);
+          time = newTime;
+
+          // clear canvas
+          context.clearRect(0, 0, canvas.width, canvas.height);
+
+          // create new particles
+          var amount = particleRate * deltaTime;
+          for (var i = 0; i < amount; i++) {
+            var pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random());
+            var dir = pos.clone().length(settings.particles.velocity);
+            particles.add(
+              canvas.width / 2 + pos.x,
+              canvas.height / 2 - pos.y,
+              dir.x,
+              -dir.y
+            );
+          }
+
+          // update and draw particles
+          particles.update(deltaTime);
+          particles.draw(context, image);
+        }
+
+        // handle (re-)sizing of the canvas
+        function onResize() {
+          canvas.width = canvas.clientWidth;
+          canvas.height = canvas.clientHeight;
+        }
+        window.onresize = onResize;
+
+        // delay rendering bootstrap
+        setTimeout(function () {
+          onResize();
+          render();
+        }, 10);
+      })(document.getElementById("pinkboard"));
+    </script>
+    <div
+      class="center-text zoom-in-out-box"
+      ,
+      style="
+        background-color: rgb(0, 0, 0);
+        width: 100%;
+        color: #ff5ca4;
+        height: 100%;
+        font-size: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 5px;
+        text-align: center;
+        font-family: 'heart-font';
+        background-color: transparent;
+      "
+    >
+      Yêu vợ
+      <img
+        src="https://cdn3.emoji.gg/emojis/6366_Flying_hearts_Pink2.gif"
+        width="24px"
+      />
+    </div>
+  </body>
+</html>
